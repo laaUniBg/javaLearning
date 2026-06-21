@@ -8,7 +8,14 @@ public class Main {
 		Scanner myScanner = new Scanner(System.in);
 		
 		do {
-			System.out.println("digita quanto vuoi versare?");
+			System.out.println(
+					new String("buongiorno ")
+						.concat(marioContoCorrente.getOwnerName())
+						.concat("! \noggi possiedi nel tuo conto ")
+						.concat(String.valueOf(marioContoCorrente.getSaldo()))
+						.concat(" euro (€) \n...allora, digita quanto vuoi versare oggi?")
+				);
+			
 			double choosenImport = Double.parseDouble(myScanner.nextLine());
 			
 			try {

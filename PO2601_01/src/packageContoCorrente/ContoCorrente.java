@@ -20,6 +20,14 @@ public class ContoCorrente {
 		this(titolare, 0);
 	}
 	
+	public String getOwnerName() {
+		return this.nomeTitolare;
+	}
+	
+	public double getSaldo() {
+		return this.saldo;
+	}
+	
 	public void versa(double importo) {
 		if(importo <= 0) {
 			throw new IllegalArgumentException(
@@ -30,7 +38,7 @@ public class ContoCorrente {
 		this.saldo += importo;
 		
 		System.out.println(
-				new String("nuovo saldo: ")
+				new String("\nnuovo saldo: ")
 					.concat(String.valueOf(this.saldo)
 					.concat(" euro (€)")
 			));
