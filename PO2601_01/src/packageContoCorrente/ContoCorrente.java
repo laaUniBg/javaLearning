@@ -29,6 +29,16 @@ public class ContoCorrente {
 		
 		this.saldo += importo;
 		
-		System.out.println("Transazione andata a buon fine!");
+		System.out.println(
+				new String("nuovo saldo: ")
+					.concat(String.valueOf(this.saldo)
+					.concat(" euro (€)")
+			));
+		
+		System.out.println(
+				new String("------ ")
+					.concat("Transazione andata a buon fine!")
+					.concat(" ------")
+			);
 	};
 }
