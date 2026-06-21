@@ -4,16 +4,9 @@ public class ContoCorrente {
 	private double saldo;
 	private String nomeTitolare;
 	
-	public ContoCorrente(String titolare, double saldoIniziale) {
-		if(saldoIniziale < 0) {
-			this.saldo = 0;
-			System.out.println(
-					"policy aziendale: non puoi avere debiti da noi allora hai 0€"
-				);
-		};
-		
+	public ContoCorrente(String titolare, double saldoIniziale) {		
 		this.nomeTitolare = titolare;
-		this.saldo = saldoIniziale;
+		this.setSaldo(saldoIniziale);
 	};
 	
 	public ContoCorrente(String titolare) {
@@ -28,15 +21,29 @@ public class ContoCorrente {
 		return this.saldo;
 	}
 	
-	public void versa(double importo) {
-		if(importo <= 0) {
+	private void setSaldo(double newSaldo) {
+		boolean isNegative = newSaldo < 0;
+		
+		if(isNegative) {
 			throw new IllegalArgumentException(
-					"importo negativo, versa un importo positivo"
+					"policy aziendale: non puoi avere debiti da noi allora hai 0€"
 				);
 		}
 		
-		this.saldo += importo;
-
+		this.saldo = newSaldo;
+	}
+	
+	public void printWelcome() {
+		System.out.println(
+				new String("buongiorno ")
+					.concat(this.getOwnerName())
+					.concat("! \noggi possiedi nel tuo conto ")
+					.concat(String.valueOf(this.getSaldo()))
+					.concat(" euro (€)")
+			);
+	};
+	
+	private void printSuccess() {
 		System.out.println(
 				new String("\nnuovo saldo: ")
 					.concat(String.valueOf(this.saldo)
@@ -48,15 +55,37 @@ public class ContoCorrente {
 					.concat("Transazione andata a buon fine!")
 					.concat(" ------")
 			);
+	}
+	
+	public void versa(double importo) {
+		if(importo <= 0) {
+			throw new IllegalArgumentException(
+					"importo negativo, versa un importo positivo"
+				);
+		}
+		
+		this.setSaldo(this.getSaldo() + importo);
+		this.printSuccess();
 	};
 	
 	public void preleva(double importo) {
 		boolean isNegative = importo < 0;
 		boolean isPoor = importo > this.getSaldo();
 		
-		if(isNegative && isPoor) {
-			throw 
+		if(isNegative) {
+			throw new IllegalArgumentException("Impossibile prelevare valori negativi");
 		}
 		
+		if(isPoor) {
+			throw new IllegalArgumentException(
+					new String("non hai abbastanza soldi, ")
+						.concat("puoi prelevare al massimo ")
+						.concat(String.valueOf(this.getSaldo()))
+						.concat(" euro (€)")
+				);
+		}
+		
+		this.setSaldo(this.getSaldo() - importo);
+		this.printSuccess();
 	}
 }
