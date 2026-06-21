@@ -36,7 +36,7 @@ public class ContoCorrente {
 		}
 		
 		this.saldo += importo;
-		
+
 		System.out.println(
 				new String("\nnuovo saldo: ")
 					.concat(String.valueOf(this.saldo)
@@ -49,4 +49,14 @@ public class ContoCorrente {
 					.concat(" ------")
 			);
 	};
+	
+	public void preleva(double importo) {
+		boolean isNegative = importo < 0;
+		boolean isPoor = importo > this.getSaldo();
+		
+		if(isNegative && isPoor) {
+			throw 
+		}
+		
+	}
 }
