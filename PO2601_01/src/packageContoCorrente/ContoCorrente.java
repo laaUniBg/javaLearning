@@ -1,7 +1,7 @@
 package packageContoCorrente;
 
 public class ContoCorrente {
-	private double saldo;
+	protected double saldo;
 	private String nomeTitolare;
 	
 	public ContoCorrente(String titolare, double saldoIniziale) {		
@@ -43,7 +43,7 @@ public class ContoCorrente {
 			);
 	};
 	
-	private void printSuccess() {
+	protected void printSuccess() {
 		System.out.println(
 				new String("\nnuovo saldo: ")
 					.concat(String.valueOf(this.saldo)

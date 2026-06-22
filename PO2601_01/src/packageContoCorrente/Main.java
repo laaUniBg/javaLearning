@@ -29,9 +29,9 @@ public class Main {
 				}
 
 				int inputIndex = Integer.parseInt(myScanner.nextLine());
+				
 				isCorrectBancaIndex = inputIndex < listaBanche.size() && inputIndex >= 0;
-				if (!isCorrectBancaIndex)
-					continue;
+				if (!isCorrectBancaIndex) continue;
 
 				indexBancaScelto = inputIndex;
 				thisSelectedBanca = listaBanche.get(indexBancaScelto);
