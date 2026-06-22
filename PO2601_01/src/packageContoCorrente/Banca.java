@@ -27,11 +27,9 @@ public class Banca {
 				throw new ContoDuplicatoException(
 						new String("il conto di ").concat(newContoOwnerString).concat(" esiste già nel sistema!"));
 			}
-
-			listaConti.add(newConto);
-			return listaConti.getLast();
-		}
-		return null;
+		};
+		listaConti.add(newConto);
+		return listaConti.getLast();
 	}
 
 	public ContoCorrente getContoCorrente(String nomeTitolare) throws ContoNotFoundException {
