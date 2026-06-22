@@ -11,13 +11,15 @@ public class Main {
 
 		do {
 			Banca thisSelectedBanca = null;
-			ContoCorrente thisSelectedConto;
+			ContoCorrente thisSelectedConto = null;
 			int indexBancaScelto;
 
-			Boolean isCorrectIndex;
+			Boolean isCorrectBancaIndex;
+			Boolean isCorrectAzioneIndex;
 			Boolean isAlreadyCliente = null;
 			Boolean isQuestionAccountAnsweredCorrectly;
 			Boolean isDuplicate;
+			Boolean canShowAzioniMenu;
 
 			do {
 				System.out.println("Scegli in quale banca vuoi creare un conto?:");
@@ -28,15 +30,15 @@ public class Main {
 				}
 
 				int inputIndex = Integer.parseInt(myScanner.nextLine());
-				isCorrectIndex = inputIndex < listaBanche.size();
-				if (!isCorrectIndex)
+				isCorrectBancaIndex = inputIndex < listaBanche.size();
+				if (!isCorrectBancaIndex)
 					continue;
 
 				indexBancaScelto = inputIndex;
 				thisSelectedBanca = listaBanche.get(indexBancaScelto);
 
 				System.out.println(" ");
-			} while (!isCorrectIndex);
+			} while (!isCorrectBancaIndex);
 
 			do {
 				System.out.println("[SI] possiedi già un conto? oppure \n[NO] quindi creiamo uno nuovo?");
@@ -72,17 +74,53 @@ public class Main {
 				do {
 					System.out.println("\nPerfetto, come ti chiami cosi accediamo al tuo conto?");
 					String nomeTitolare = myScanner.nextLine();
-					try { 
+					try {
 						thisSelectedConto = thisSelectedBanca.getContoCorrente(nomeTitolare);
 						isQuestionAccountAnsweredCorrectly = true;
-					} catch(ContoNotFoundException e) {
+					} catch (ContoNotFoundException e) {
 						System.out.println(e.getMessage());
 						System.out.println("scegli un nomeTitolare già esistente visto che sei già cliente");
 						isQuestionAccountAnsweredCorrectly = false;
 					}
-				} while(!isQuestionAccountAnsweredCorrectly);
- 			}
-			
+				} while (!isQuestionAccountAnsweredCorrectly);
+			}
+
+			do {
+				thisSelectedConto.printWelcome();
+				System.out.println("vuoi prelevare [1] oppure versare [2]?");
+
+				int azioneIndex = Integer.parseInt(myScanner.nextLine());
+
+				isCorrectAzioneIndex = azioneIndex <= 2 && azioneIndex > 0;
+				if (!isCorrectAzioneIndex) continue;
+
+				do {
+					canShowAzioniMenu = true;
+					String nomeAzione = azioneIndex == 1 ? "prelevare" : "versare";
+					System.out.println(new String(thisSelectedConto.getOwnerName()).concat(",quanto vuoi ")
+							.concat(nomeAzione).concat(" oggi? \n (scrivi X se hai sbagliato azione)"));
+
+					String inputScanner = myScanner.nextLine();
+					
+					if(inputScanner.equals("X") || inputScanner.equals("x")) {
+						canShowAzioniMenu = false;
+						continue;
+					};
+					
+					double amount = Double.parseDouble(inputScanner);
+
+					boolean selectedPrelevare = azioneIndex == 1;
+					boolean selectedVersare = azioneIndex == 2;
+
+					try {
+						if (selectedPrelevare) thisSelectedConto.preleva(amount);
+						if (selectedVersare) thisSelectedConto.versa(amount);
+					} catch (IllegalArgumentException e) {
+						System.out.println(e.getMessage());
+					}
+				} while (canShowAzioniMenu);
+			} while (!isCorrectAzioneIndex);
+
 			myScanner.close();
 		} while (true);
 
