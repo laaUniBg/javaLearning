@@ -1,27 +1,35 @@
 package packageContoCorrente;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
 	public static void main(String[] args) {
-		ContoCorrente marioContoCorrente = new ContoCorrente("mario",500);
-		Scanner myScanner = new Scanner(System.in);
+		List<Banca> listaBanche = new ArrayList<Banca>(List.of(new Banca("IntesaSanPaolo"), new Banca("Unicredit")));
 		
-		do {
-			marioContoCorrente.printWelcome();
-			System.out.println("...allora, digita quanto vuoi prelevare oggi:");
+		System.out.println("Scegli in quale banca vuoi creare un conto?:");
+		
+		for(int i=0; i<listaBanche.size(); i++) {
+			Banca thisBanca = listaBanche.get(i);
+			// TODO:
 			
-			double choosenImport = Double.parseDouble(myScanner.nextLine());
-			
-			try {
-				// marioContoCorrente.versa(choosenImport);
-				
-				marioContoCorrente.preleva(choosenImport);
-			} catch (Exception e) {
-				System.out.println(e.getMessage());
-			} finally {
-				System.out.println(" ");
-			}
-		} while (true);
+		}
+		/*
+		 * ContoCorrente marioContoCorrente = new ContoCorrente("mario",500); Scanner
+		 * myScanner = new Scanner(System.in);
+		 * 
+		 * do { marioContoCorrente.printWelcome();
+		 * System.out.println("...allora, digita quanto vuoi prelevare oggi:");
+		 * 
+		 * double choosenImport = Double.parseDouble(myScanner.nextLine());
+		 * 
+		 * try { // marioContoCorrente.versa(choosenImport);
+		 * 
+		 * marioContoCorrente.preleva(choosenImport); } catch (Exception e) {
+		 * System.out.println(e.getMessage()); } finally { System.out.println(" "); }
+		 * 
+		 * } while (true);
+		 */
 	}
 }
