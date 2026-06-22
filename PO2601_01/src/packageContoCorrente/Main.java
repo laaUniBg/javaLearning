@@ -9,28 +9,27 @@ public class Main {
 		Scanner myScanner = new Scanner(System.in);
 		List<Banca> listaBanche = new ArrayList<Banca>(List.of(new Banca("IntesaSanPaolo"), new Banca("Unicredit")));
 
-		do {
+		while (true) {
 			Banca thisSelectedBanca = null;
 			ContoCorrente thisSelectedConto = null;
 			int indexBancaScelto;
 
 			Boolean isCorrectBancaIndex;
-			Boolean isCorrectAzioneIndex;
-			Boolean isAlreadyCliente = null;
 			Boolean isQuestionAccountAnsweredCorrectly;
+			Boolean isAlreadyCliente = null;
 			Boolean isDuplicate;
-			Boolean canShowAzioniMenu;
 
+			// 1. SELEZIONE BANCA
 			do {
 				System.out.println("Scegli in quale banca vuoi creare un conto?:");
 
 				for (int i = 0; i < listaBanche.size(); i++) {
 					Banca thisBanca = listaBanche.get(i);
-					System.out.println(new String(Integer.toString(i)).concat(") ").concat(thisBanca.getBancaName()));
+					System.out.println(i + ") " + thisBanca.getBancaName());
 				}
 
 				int inputIndex = Integer.parseInt(myScanner.nextLine());
-				isCorrectBancaIndex = inputIndex < listaBanche.size();
+				isCorrectBancaIndex = inputIndex < listaBanche.size() && inputIndex >= 0;
 				if (!isCorrectBancaIndex)
 					continue;
 
@@ -40,9 +39,10 @@ public class Main {
 				System.out.println(" ");
 			} while (!isCorrectBancaIndex);
 
+			// 2. DIALOGO CLIENTE NUOVO O VECCHIO
 			do {
 				System.out.println("[SI] possiedi già un conto? oppure \n[NO] quindi creiamo uno nuovo?");
-				String risposta = myScanner.nextLine();
+				String risposta = myScanner.nextLine().toUpperCase();
 
 				isQuestionAccountAnsweredCorrectly = risposta.equals("SI") || risposta.equals("NO");
 				if (!isQuestionAccountAnsweredCorrectly)
@@ -51,23 +51,22 @@ public class Main {
 				isAlreadyCliente = risposta.equals("SI");
 			} while (!isQuestionAccountAnsweredCorrectly);
 
+			// 3. REGISTRAZIONE O ACCESSO
 			if (!isAlreadyCliente) {
 				do {
 					try {
-						System.out.println("\nPerfetto, creiamo un nuovo conto per te, \n come ti chiami?");
+						System.out.println("\nPerfetto, creiamo un nuovo conto per te, \ncome ti chiami?");
 						String nomeNewTitolare = myScanner.nextLine();
 						ContoCorrente thisContoCorrente = new ContoCorrente(nomeNewTitolare);
 						thisSelectedBanca.aggiungiConto(thisContoCorrente);
 						isDuplicate = false;
-						try {
-							thisSelectedConto = thisSelectedBanca.getContoCorrente(nomeNewTitolare);
-						} catch (ContoNotFoundException e) {
-							/* non serve perchè abbiamo già la certezza prima di aver creato il conto */
-						}
+						thisSelectedConto = thisSelectedBanca.getContoCorrente(nomeNewTitolare);
 					} catch (ContoDuplicatoException e) {
 						System.out.println(e.getMessage());
-						System.out.println("utilizza un altro nome perfavore che non esiste nel database:");
+						System.out.println("utilizza un altro nome per favore che non esiste nel database:");
 						isDuplicate = true;
+					} catch (ContoNotFoundException e) {
+						isDuplicate = false;
 					}
 				} while (isDuplicate);
 			} else {
@@ -85,60 +84,58 @@ public class Main {
 				} while (!isQuestionAccountAnsweredCorrectly);
 			}
 
-			do {
+			// 4. MENU OPERAZIONI
+			boolean continuaMenuAzioni = true;
+			while (continuaMenuAzioni) {
 				thisSelectedConto.printWelcome();
-				System.out.println("vuoi prelevare [1] oppure versare [2]?");
+				System.out.println("vuoi prelevare [1], versare [2] oppure uscire/cambiare banca [X]?");
 
-				int azioneIndex = Integer.parseInt(myScanner.nextLine());
+				String inputScelta = myScanner.nextLine();
 
-				isCorrectAzioneIndex = azioneIndex <= 2 && azioneIndex > 0;
-				if (!isCorrectAzioneIndex) continue;
+				if (inputScelta.equalsIgnoreCase("X")) {
+					continuaMenuAzioni = false;
+					break;
+				}
 
-				do {
-					canShowAzioniMenu = true;
-					String nomeAzione = azioneIndex == 1 ? "prelevare" : "versare";
-					System.out.println(new String(thisSelectedConto.getOwnerName()).concat(",quanto vuoi ")
-							.concat(nomeAzione).concat(" oggi? \n (scrivi X se hai sbagliato azione)"));
+				int azioneIndex;
+				try {
+					azioneIndex = Integer.parseInt(inputScelta);
+				} catch (NumberFormatException e) {
+					System.out.println("Scelta non valida!");
+					continue;
+				}
 
-					String inputScanner = myScanner.nextLine();
-					
-					if(inputScanner.equals("X") || inputScanner.equals("x")) {
-						canShowAzioniMenu = false;
-						continue;
-					};
-					
-					double amount = Double.parseDouble(inputScanner);
+				if (azioneIndex != 1 && azioneIndex != 2) {
+					System.out.println("Azione non valida! Scegli 1 o 2.");
+					continue;
+				}
 
-					boolean selectedPrelevare = azioneIndex == 1;
-					boolean selectedVersare = azioneIndex == 2;
+				String nomeAzione = (azioneIndex == 1) ? "prelevare" : "versare";
+				System.out.println(thisSelectedConto.getOwnerName() + ", quanto vuoi " + nomeAzione + " oggi?\n(scrivi X per annullare l'azione)");
 
-					try {
-						if (selectedPrelevare) thisSelectedConto.preleva(amount);
-						if (selectedVersare) thisSelectedConto.versa(amount);
-					} catch (IllegalArgumentException e) {
-						System.out.println(e.getMessage());
+				String inputImporto = myScanner.nextLine();
+
+				if (inputImporto.equalsIgnoreCase("X")) {
+					System.out.println("Azione annullata.\n");
+					continue;
+				}
+
+				try {
+					double amount = Double.parseDouble(inputImporto);
+					if (azioneIndex == 1) {
+						thisSelectedConto.preleva(amount);
+					} else {
+						thisSelectedConto.versa(amount);
 					}
-				} while (canShowAzioniMenu);
-			} while (!isCorrectAzioneIndex);
-
-			myScanner.close();
-		} while (true);
-
-		/*
-		 * ContoCorrente marioContoCorrente = new ContoCorrente("mario",500); Scanner
-		 * myScanner = new Scanner(System.in);
-		 * 
-		 * do { marioContoCorrente.printWelcome();
-		 * System.out.println("...allora, digita quanto vuoi prelevare oggi:");
-		 * 
-		 * double choosenImport = Double.parseDouble(myScanner.nextLine());
-		 * 
-		 * try { // marioContoCorrente.versa(choosenImport);
-		 * 
-		 * marioContoCorrente.preleva(choosenImport); } catch (Exception e) {
-		 * System.out.println(e.getMessage()); } finally { System.out.println(" "); }
-		 * 
-		 * } while (true);
-		 */
+				} catch (NumberFormatException e) {
+					System.out.println("Errore: Inserisci un numero valido.");
+				} catch (IllegalArgumentException e) {
+					System.out.println(e.getMessage());
+				}
+				System.out.println();
+			} 
+		}
+		
+		// myScanner.close();
 	}
 }
