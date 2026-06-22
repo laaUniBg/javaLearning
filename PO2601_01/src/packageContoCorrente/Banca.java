@@ -12,20 +12,36 @@ public class Banca {
 		this.nomeBancaString = nomeBancaString;
 	}
 
-	public void aggiungiConto(ContoCorrente newConto) throws ContoDuplicatoException {
+	public String getBancaName() {
+		return nomeBancaString;
+	};
+
+	public ContoCorrente aggiungiConto(ContoCorrente newConto) throws ContoDuplicatoException {
 		String newContoOwnerString = newConto.getOwnerName();
 		for (ContoCorrente oldContoCorrente : listaConti) {
 			String thisOldOwnerString = oldContoCorrente.getOwnerName();
-			
+
 			boolean isDuplicate = newContoOwnerString.equals(thisOldOwnerString);
-			
-			if(isDuplicate) {
+
+			if (isDuplicate) {
 				throw new ContoDuplicatoException(
-						new String("il conto di ").concat(newContoOwnerString).concat(" esiste già nel sistema!")
-					);
+						new String("il conto di ").concat(newContoOwnerString).concat(" esiste già nel sistema!"));
 			}
-			
+
 			listaConti.add(newConto);
+			return listaConti.getLast();
 		}
+		return null;
 	}
+
+	public ContoCorrente getContoCorrente(String nomeTitolare) throws ContoNotFoundException {
+		for (ContoCorrente thisContoCorrente : listaConti) {
+			boolean isContoWanted = thisContoCorrente.getOwnerName().equals(nomeTitolare);
+			if (!isContoWanted) continue;
+			return thisContoCorrente;
+		}
+		throw new ContoNotFoundException(
+				new String("non esiste un conto attestato al titolare: ").concat(nomeTitolare)
+			);
+	};
 }
