@@ -14,12 +14,12 @@ public class Passeggero {
 
 	private static List<Passeggero> listaPasseggeri = new ArrayList<Passeggero>();
 	
-	public Passeggero(String paramNome, String paramCognome, String paramNumeroPassaporto) {
+	public Passeggero(String paramNome, String paramCognome, String paramNumeroPassaporto) throws DuplicatoPassaportoException {
 		this.setNome(paramNome);
 		this.setCognome(paramCognome);
 		this.setNumeroPassaporto(paramNumeroPassaporto);
 		
-		this.listaPasseggeri.add(this);
+		Passeggero.listaPasseggeri.add(this);
 	}
 	
 	private void setNome(String paramNome) {
@@ -31,7 +31,7 @@ public class Passeggero {
 	}
 
 	void setNumeroPassaporto(String paramNumeroPassaporto) throws DuplicatoPassaportoException {
-		boolean isCorrectLength = !paramNumeroPassaporto.isEmpty() && paramNumeroPassaporto.length() == 9;
+		boolean isCorrectLength = paramNumeroPassaporto != null && paramNumeroPassaporto.length() == 9;
 		
 		if(!isCorrectLength) {
 			throw new LunghezzaErrataIdPassaportoException("l'id del passaporto deve avere esclusivamente 9 caratteri, controlla un'altra volta di aver scritto bene l'id: " + paramNumeroPassaporto);
