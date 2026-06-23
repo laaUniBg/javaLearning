@@ -17,12 +17,9 @@ public class Passeggero {
 	public Passeggero(String paramNome, String paramCognome, String paramNumeroPassaporto) {
 		this.setNome(paramNome);
 		this.setCognome(paramCognome);
+		this.setNumeroPassaporto(paramNumeroPassaporto);
 		
-		try {
-			this.setNumeroPassaporto(paramNumeroPassaporto);
-		} catch (DuplicatoPassaportoException e) {
-			System.out.println("\n" + e.getMessage());
-		};
+		this.listaPasseggeri.add(this);
 	}
 	
 	private void setNome(String paramNome) {
@@ -33,11 +30,13 @@ public class Passeggero {
 		this.cognome = paramCognome;
 	}
 
-	/**
-	 * @param paramNumeroPassaporto
-	 * @throws DuplicatoPassaportoException
-	 */
 	void setNumeroPassaporto(String paramNumeroPassaporto) throws DuplicatoPassaportoException {
+		boolean isCorrectLength = !paramNumeroPassaporto.isEmpty() && paramNumeroPassaporto.length() == 9;
+		
+		if(!isCorrectLength) {
+			throw new LunghezzaErrataIdPassaportoException("l'id del passaporto deve avere esclusivamente 9 caratteri, controlla un'altra volta di aver scritto bene l'id: " + paramNumeroPassaporto);
+		}
+		
 		if (!listaPasseggeri.isEmpty()) {
 			for (Passeggero thisPasseggero : listaPasseggeri) {
 				boolean isDuplicate = thisPasseggero.numeroPassaporto.equals(paramNumeroPassaporto);
