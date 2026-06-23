@@ -1,4 +1,4 @@
-package packageContoCorrente;
+package bancaPackage;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,9 +29,10 @@ public class Main {
 				}
 
 				int inputIndex = Integer.parseInt(myScanner.nextLine());
-				
+
 				isCorrectBancaIndex = inputIndex < listaBanche.size() && inputIndex >= 0;
-				if (!isCorrectBancaIndex) continue;
+				if (!isCorrectBancaIndex)
+					continue;
 
 				indexBancaScelto = inputIndex;
 				thisSelectedBanca = listaBanche.get(indexBancaScelto);
@@ -111,7 +112,8 @@ public class Main {
 				}
 
 				String nomeAzione = (azioneIndex == 1) ? "prelevare" : "versare";
-				System.out.println(thisSelectedConto.getOwnerName() + ", quanto vuoi " + nomeAzione + " oggi?\n(scrivi X per annullare l'azione)");
+				System.out.println(thisSelectedConto.getOwnerName() + ", quanto vuoi " + nomeAzione
+						+ " oggi?\n(scrivi X per annullare l'azione)");
 
 				String inputImporto = myScanner.nextLine();
 
@@ -133,9 +135,9 @@ public class Main {
 					System.out.println(e.getMessage());
 				}
 				System.out.println();
-			} 
+			}
 		}
-		
+
 		// myScanner.close();
 	}
 }

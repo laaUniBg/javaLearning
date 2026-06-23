@@ -1,4 +1,4 @@
-package packageContoCorrente;
+package bancaPackage;
 
 import java.util.ArrayList;
 import java.util.List;

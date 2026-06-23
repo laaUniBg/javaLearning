@@ -1,4 +1,4 @@
-package packageContoCorrente;
+package bancaPackage;
 
 public class ContoCorrente {
 	protected double saldo;

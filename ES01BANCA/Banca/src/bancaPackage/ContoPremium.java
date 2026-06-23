@@ -1,4 +1,4 @@
-package packageContoCorrente;
+package bancaPackage;
 
 public class ContoPremium  extends ContoCorrente {
 	public ContoPremium(String titolare, double saldoIniziale) {
