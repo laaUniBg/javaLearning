@@ -1,4 +1,4 @@
-package aeroporto.passeggero;
+package aeroporto.magazzino;
 
 public enum TipoBevanda {
 	COCACOLA,
