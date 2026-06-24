@@ -3,6 +3,8 @@ package aeroporto.passeggero;
 import java.util.ArrayList;
 import java.util.List;
 
+import aeroporto.passeggero.exceptions.DuplicatoPassaportoException;
+import aeroporto.passeggero.exceptions.LunghezzaErrataIdPassaportoException;
 
 public class Passeggero {
 	private String nome;

@@ -1,4 +1,4 @@
-package aeroporto.passeggero;
+package aeroporto.passeggero.exceptions;
 
 public class LunghezzaErrataIdPassaportoException extends RuntimeException {
 	public LunghezzaErrataIdPassaportoException(String message) {
