@@ -8,14 +8,17 @@ import aeroporto.boardingPass.BoardingPass;
 import aeroporto.boardingPass.Volo;
 import aeroporto.passeggero.exceptions.DuplicatoPassaportoException;
 import aeroporto.passeggero.exceptions.LunghezzaErrataIdPassaportoException;
+import sun.net.www.content.text.plain;
 
 public class Passeggero {
 	private String nome;
 	private String cognome;
 	private String numeroPassaporto;
+	
+	private int numeroPuntiAccomulati;
+	protected int numeriPuntiPerViaggio;
 
 	private int numeroVoliEseguiti;
-	private int numeroPuntiAccomulati;
 
 	private static List<Passeggero> listaPasseggeri = new ArrayList<Passeggero>();
 	private List<BoardingPass> listaBoardingPasses = new ArrayList<BoardingPass>();
@@ -38,8 +41,13 @@ public class Passeggero {
 	
 	public void compraBiglietto(Volo paramVolo) {
 		listaBoardingPasses.add(new BoardingPass(paramVolo));
+		this.aggiungiPunti();
 	}
-
+	
+	private void aggiungiPunti() {
+		this.numeroPuntiAccomulati+=this.numeriPuntiPerViaggio;
+	};
+	
 	void setNumeroPassaporto(String paramNumeroPassaporto) throws DuplicatoPassaportoException {
 		boolean isCorrectLength = paramNumeroPassaporto != null && paramNumeroPassaporto.length() == 9;
 		

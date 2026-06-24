@@ -1,5 +1,8 @@
 package aeroporto.boardingPass;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class BoardingPass {
 	private Volo thisVolo;
 	
