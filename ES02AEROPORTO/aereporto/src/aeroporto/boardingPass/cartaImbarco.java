@@ -1,6 +1,4 @@
-package aeroporto.cartaImbarco;
-
-import aeroporto.volo.Volo;
+package aeroporto.boardingPass;
 
 public class cartaImbarco /*extends Volo*/ {
 	private Volo thisVolo;

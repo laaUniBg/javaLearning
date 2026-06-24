@@ -1,4 +1,4 @@
-package aeroporto.volo;
+package aeroporto.boardingPass;
 
 import java.util.Date;
 
