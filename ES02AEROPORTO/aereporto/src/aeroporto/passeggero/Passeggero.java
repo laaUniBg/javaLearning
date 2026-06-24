@@ -1,8 +1,11 @@
 package aeroporto.passeggero;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
+import aeroporto.boardingPass.BoardingPass;
+import aeroporto.boardingPass.Volo;
 import aeroporto.passeggero.exceptions.DuplicatoPassaportoException;
 import aeroporto.passeggero.exceptions.LunghezzaErrataIdPassaportoException;
 
@@ -15,6 +18,7 @@ public class Passeggero {
 	private int numeroPuntiAccomulati;
 
 	private static List<Passeggero> listaPasseggeri = new ArrayList<Passeggero>();
+	private List<BoardingPass> listaBoardingPasses = new ArrayList<BoardingPass>();
 	
 	public Passeggero(String paramNome, String paramCognome, String paramNumeroPassaporto) throws DuplicatoPassaportoException {
 		this.setNome(paramNome);
@@ -30,6 +34,10 @@ public class Passeggero {
 	
 	private void setCognome(String paramCognome) {
 		this.cognome = paramCognome;
+	}
+	
+	public void compraBiglietto(Volo paramVolo) {
+		listaBoardingPasses.add(new BoardingPass(paramVolo));
 	}
 
 	void setNumeroPassaporto(String paramNumeroPassaporto) throws DuplicatoPassaportoException {
