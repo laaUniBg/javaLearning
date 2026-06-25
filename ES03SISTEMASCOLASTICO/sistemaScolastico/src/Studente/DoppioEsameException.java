@@ -1,4 +1,4 @@
-package Studente;
+package studente;
 
 public class DoppioEsameException extends RuntimeException {
 	public DoppioEsameException(String message) {

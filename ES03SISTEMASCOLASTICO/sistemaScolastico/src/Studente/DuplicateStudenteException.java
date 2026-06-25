@@ -1,4 +1,4 @@
-package Studente;
+package studente;
 
 public class DuplicateStudenteException extends Exception {
 	private static final long serialVersionUID = -4409833919988034285L;

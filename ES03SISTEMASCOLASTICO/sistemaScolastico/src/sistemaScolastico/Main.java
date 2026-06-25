@@ -6,11 +6,11 @@ import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
-import Studente.DuplicateStudenteException;
-import Studente.Studente;
-import Studente.StudenteLavoratore;
-import Studente.StudenteNonLavoratore;
 import gestioneEsami.PossibiliEsami;
+import studente.DuplicateStudenteException;
+import studente.Studente;
+import studente.StudenteLavoratore;
+import studente.StudenteNonLavoratore;
 
 public class Main {
 
@@ -28,11 +28,11 @@ public class Main {
 		Random random = new Random();
 		
 		try {
-			studente0 = new StudenteLavoratore(1, "Nome0", "Cognome0", "Capo0");
-			studente1 = new StudenteLavoratore(2, "Nome1", "Cognome1", "Capo1");
-			studente2 = new StudenteLavoratore(2, "Nome2", "Cognome2", "Capo2");
-			studente3 = new StudenteNonLavoratore(3, "Nome2", "Cognome2");
-			studente4 = new StudenteNonLavoratore(4, "Nome3", "Cognome3");
+			studente0 = new StudenteLavoratore(123456789, "Nome0", "Cognome0", "Capo0");
+			studente1 = new StudenteLavoratore(223456789, "Nome1", "Cognome1", "Capo1");
+			studente2 = new StudenteLavoratore(223456789, "Nome2", "Cognome2", "Capo2");
+			studente3 = new StudenteNonLavoratore(323456789, "Nome2", "Cognome2");
+			studente4 = new StudenteNonLavoratore(423456789, "Nome3", "Cognome3");
 
 			for (Studente thisStudente : List.of(studente0, studente1, studente2, studente3, studente4)) {
 				listaStudentiGestionaleUni.add(thisStudente);

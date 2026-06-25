@@ -1,4 +1,4 @@
-package Studente;
+package studente;
 
 public class StudenteNonLavoratore extends Studente {
 	public StudenteNonLavoratore(int paramMatricola, String paramNome, String paramCognome) throws DuplicateStudenteException {

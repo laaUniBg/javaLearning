@@ -1,9 +1,10 @@
-package Studente;
+package studente;
 
 import java.time.LocalDate;
-import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
 
 import gestioneEsami.Esame;
 import gestioneEsami.PossibiliEsami;
@@ -16,8 +17,8 @@ public class Studente {
 	protected int numeroPuntiAccumulati;
 	final int DEFAULT_NUMERO_PUNTI_PER_ESAME = 1;
 
-	List<Studente> listaStudenti = new LinkedList<Studente>();
-	List<Esame> listaEsami = new LinkedList<Esame>();
+	static List<Studente> listaStudenti = new LinkedList<Studente>();
+	private Set<Esame> listaEsami = new HashSet<Esame>();
 	
 	public Studente(int paramMatricola, String paramNome, String paramCognome) throws DuplicateStudenteException {
 		this.nome = paramNome;

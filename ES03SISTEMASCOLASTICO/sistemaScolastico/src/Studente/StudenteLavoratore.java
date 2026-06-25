@@ -1,4 +1,4 @@
-package Studente;
+package studente;
 
 public class StudenteLavoratore extends Studente {
 	private String nomeDatoreLavoro;
