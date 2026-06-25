@@ -26,19 +26,20 @@ public class Studente {
 		this.setMatricola(paramMatricola);
 		this.numeroEsamiSostenuti = 0;
 		this.numeroPuntiAccumulati = 0;
+		Studente.listaStudenti.add(this);
 	}
 
 	public void passaEsame(PossibiliEsami paramNomeEsame, LocalDate paramDataEsame) {
-		boolean isFirstEsame = listaEsami != null && listaEsami.isEmpty();
-		
-		if(!isFirstEsame) {
-			for(Esame thisEsame : listaEsami) {
-				boolean isDuplicate = thisEsame.getNomeEsame().equals(paramNomeEsame);
-				if(!isDuplicate) continue;
-				throw new DoppioEsameException("Ogni esame può essere passato una sola volta, non puoi inserire un esame due volte");
-			}
-		}
-		
+//		boolean isFirstEsame = listaEsami != null && listaEsami.isEmpty();
+//		
+//		if(!isFirstEsame) {
+//			for(Esame thisEsame : listaEsami) {
+//				boolean isDuplicate = thisEsame.getNomeEsame().equals(paramNomeEsame);
+//				if(!isDuplicate) continue;
+//				throw new DoppioEsameException("Ogni esame può essere passato una sola volta, non puoi inserire un esame due volte");
+//			}
+//		}
+//		
 		this.listaEsami.add(new Esame(paramNomeEsame, paramDataEsame));
 		this.numeroEsamiSostenuti++;
 		this.aggiungiPunti();
