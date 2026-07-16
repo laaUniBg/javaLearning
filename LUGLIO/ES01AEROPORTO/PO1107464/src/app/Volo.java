@@ -10,6 +10,7 @@ public abstract class Volo implements Prenotabile, Comparable<Volo> {
 	private String codice;
 	private Date data;
 	private Aereo aereo; // has-a (associazione)
+	private int passeggeriAttuali;
 	
 	private static final Map<String, Double> CODICISCONTOMAP = initCouponMap();
 	
@@ -18,6 +19,7 @@ public abstract class Volo implements Prenotabile, Comparable<Volo> {
 		this.setCodice(codice);
 		this.data = data;
 		this.aereo = aereo;
+		this.passeggeriAttuali = 0;
 	};
 	
 	// overloading del costruttore
@@ -45,7 +47,10 @@ public abstract class Volo implements Prenotabile, Comparable<Volo> {
 		};
 		
 		return this.calcolaPrezzo(percentualeSconto);
-	}
+	};
+	
+	@Override
+	// continua da prenota e cancella e usa passeggeri attuali
 	
 	private static Map<String, Double> initCouponMap() {
 		Map<String, Double> result = new HashMap<String, Double>();
