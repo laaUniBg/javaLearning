@@ -1,4 +1,4 @@
-package app;
+package app.interfaces;
 import app.exceptions.VoloPienoException;
 
 public interface Prenotabile {

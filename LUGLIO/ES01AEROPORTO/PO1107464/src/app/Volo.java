@@ -4,18 +4,19 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import app.enums.TipoCoupon;
 import app.exceptions.CodiceNonValidoException;
 import app.exceptions.VoloPienoException;
+import app.interfaces.Prenotabile;
 
 public abstract class Volo implements Prenotabile, Comparable<Volo> {
-	private String codice;
-	private Date data;
-	private Aereo aereo; // has-a (associazione)
-	private int passeggeriAttuali;
+	protected String codice;
+	protected Date data;
+	protected Aereo aereo; // has-a (associazione)
+	protected int passeggeriAttuali;
 	
 	private static final Map<String, Double> CODICISCONTOMAP = initCouponMap();
 	
-
 	public Volo(String codice, Date data, Aereo aereo) {
 		this.setCodice(codice);
 		this.data = data;
@@ -66,6 +67,8 @@ public abstract class Volo implements Prenotabile, Comparable<Volo> {
 		passeggeriAttuali--;
 	};
 	
+	// usiamo compareTo di Comparable
+	
 	@Override
 	public int compareTo(Volo altroVolo) {
 		return this.codice.compareTo(altroVolo.codice);
@@ -73,9 +76,20 @@ public abstract class Volo implements Prenotabile, Comparable<Volo> {
 	
 	@Override
 	public String toString() {
-		String strCodice = "codice volo: " + this.codice;
-		String strData = "data volo: " + this.data;
-		String strAereo
+		final String strCodice = "codice volo: " + this.codice;
+		final String strData = "data volo: " + this.data;
+		final String strAereo = "nome aereo: " + this.aereo.getModello();
+		final String strPosti = "posti occupati: " + Integer.toString(this.passeggeriAttuali) + "/" + Integer.toString(this.aereo.getCapienza());
+		
+		final String[] arrayInfo = {strCodice, strData, strAereo, strPosti};
+		
+		String result = "";
+		
+		for(String thisString : arrayInfo) {
+			result.concat(" | " + thisString);
+		};
+		
+		return result;
 	}
 
 	private static Map<String, Double> initCouponMap() {
