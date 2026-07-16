@@ -13,6 +13,6 @@ package app;
  */
 
 public interface Prenotabile {
-	void prenotaPosto(Passeggero p) throws PostoNonDisponibileException;
-	boolean cancellaPrenotazione(Passeggero p);
+	void prenotaPosto(String nomePasseggero) throws PostoNonDisponibileException;
+	void cancellaPrenotazione();
 };
