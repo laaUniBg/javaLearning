@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import app.exceptions.CodiceNonValidoException;
+import app.exceptions.VoloPienoException;
 
 public abstract class Volo implements Prenotabile, Comparable<Volo> {
 	private String codice;
@@ -49,9 +50,34 @@ public abstract class Volo implements Prenotabile, Comparable<Volo> {
 		return this.calcolaPrezzo(percentualeSconto);
 	};
 	
-	@Override
-	// continua da prenota e cancella e usa passeggeri attuali
+	// ecco come si usa interface
 	
+	@Override
+	public void prenota() throws VoloPienoException {
+		boolean stillHaveSpace = this.passeggeriAttuali < this.aereo.getCapienza();
+		if(!stillHaveSpace) throw new VoloPienoException("il volo n." + this.codice + " è pieno");
+		passeggeriAttuali++;
+	}
+	
+	@Override
+	public void cancella() {
+		boolean isEmpty = passeggeriAttuali <= 0;
+		if(isEmpty) return;
+		passeggeriAttuali--;
+	};
+	
+	@Override
+	public int compareTo(Volo altroVolo) {
+		return this.codice.compareTo(altroVolo.codice);
+	}
+	
+	@Override
+	public String toString() {
+		String strCodice = "codice volo: " + this.codice;
+		String strData = "data volo: " + this.data;
+		String strAereo
+	}
+
 	private static Map<String, Double> initCouponMap() {
 		Map<String, Double> result = new HashMap<String, Double>();
 		result.put(TipoCoupon.BRONZO10.name(), 10.0);
