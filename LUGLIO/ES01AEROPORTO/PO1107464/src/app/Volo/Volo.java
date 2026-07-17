@@ -6,6 +6,7 @@ import java.util.Map;
 
 import app.Aereo;
 import app.enums.TipoCoupon;
+import app.enums.TipoPosto;
 import app.exceptions.CodiceNonValidoException;
 import app.exceptions.VoloPienoException;
 import app.interfaces.Prenotabile;
@@ -33,15 +34,15 @@ public abstract class Volo implements Prenotabile, Comparable<Volo> {
 	// metodo astratto
 	public abstract double calcolaPrezzoBase();
 	
-	public double calcolaPrezzo(double percentualeSconto) {
-		double base = this.calcolaPrezzoBase();
+	public double calcolaPrezzo(double percentualeSconto, TipoPosto tipoPosto) {
+		double base = this.calcolaPrezzoBase() * tipoPosto.getMoltiplicatore();
 		double euroRidotti = base * (percentualeSconto / 100.0);
 		double result = base - euroRidotti;
 		return result;
 	};
 	
 	// overloading
-	public double calcolaPrezzo(String couponName) {
+	public double calcolaPrezzo(String couponName, TipoPosto tipoPosto) {
 		Double percentualeSconto = CODICISCONTOMAP.get(couponName.toUpperCase());
 		boolean hasPercentuale = percentualeSconto != null;
 		
@@ -49,7 +50,7 @@ public abstract class Volo implements Prenotabile, Comparable<Volo> {
 			percentualeSconto = 0.0;
 		};
 		
-		return this.calcolaPrezzo(percentualeSconto);
+		return this.calcolaPrezzo(percentualeSconto, tipoPosto);
 	};
 	
 	// ecco come si usa interface

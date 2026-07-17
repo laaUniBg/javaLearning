@@ -10,6 +10,7 @@ import app.Volo.Volo;
 import app.Volo.VoloInternazionale;
 import app.Volo.VoloNazionale;
 import app.enums.TipoDocumento;
+import app.exceptions.CodiceNonValidoException;
 import app.exceptions.VoloPienoException;
 
 public class GestoreAeroporto {
@@ -67,6 +68,14 @@ public class GestoreAeroporto {
 				System.out.println("ECCEZZIONE CATTURATA: " + e.getMessage());
 			}
 		} while(isCatchRunned == false);
+	}
+	
+	private static void testRuntimeException() {
+		try {
+			Volo myVolo = new VoloNazionale(" ", new Date(2025-1900, 5, 1), new Aereo("airbus", 60));
+		} catch(CodiceNonValidoException e) {
+			System.out.println("RUNTIME EXCEPTION: " + e.getMessage());
+		}
 	}
 	
 	private static void testInstanceOf(List<Volo> tabellone) {
@@ -128,6 +137,8 @@ public class GestoreAeroporto {
 		int knownMax = v1.getAereo().getCapienza();
 		GestoreAeroporto.testVoloPienoException(v1, knownMax);
 		
+		GestoreAeroporto.testRuntimeException();
+		
 		GestoreAeroporto.testInstanceOf(tabellone);
 		
 		GestoreAeroporto.testOrdinamentoNaturale(tabellone);
@@ -137,5 +148,4 @@ public class GestoreAeroporto {
 		
 		GestoreAeroporto.testOrdinamentoPersonalizzato(tabellone);
 	}
-
 }
