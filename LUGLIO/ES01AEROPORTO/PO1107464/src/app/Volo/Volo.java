@@ -87,7 +87,7 @@ public abstract class Volo implements Prenotabile, Comparable<Volo> {
 		String result = "";
 		
 		for(String thisString : arrayInfo) {
-			result.concat(" | " + thisString);
+			result += " | " + thisString;
 		};
 		
 		return result;

@@ -7,8 +7,9 @@ import app.Aereo;
 public class VoloInternazionale extends Volo {
 	private boolean isPassaportoRichiesto;
 	
-	public VoloInternazionale(String codice, Date data, Aereo aereo, boolean pssaportoRichisto) {
+	public VoloInternazionale(String codice, Date data, Aereo aereo, boolean passaportoRichiesto) {
 		super(codice, data, aereo);
+		this.isPassaportoRichiesto = passaportoRichiesto;
 	}
 
 	public double calcolaPrezzoBase() {		

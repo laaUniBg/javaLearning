@@ -7,9 +7,9 @@ public enum TipoDocumento {
 
 	@Override
 	public String toString() {
-		if(this.name() == "CARTAIDENTITA") {
+		if(this == CARTAIDENTITA) {
 			return "carta d'identita";
-		}
+		};
 		return this.name();
 	}
 };
