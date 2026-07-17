@@ -5,11 +5,8 @@ import java.util.Date;
 import app.Aereo;
 
 public class VoloNazionale extends Volo {
-	private String documentoRichiesto;
-	
-	public VoloNazionale(String codiceVolo, Date data, Aereo aereo, String documentoRichiesto) {
+	public VoloNazionale(String codiceVolo, Date data, Aereo aereo) {
 		super(codiceVolo, data, aereo);
-		this.documentoRichiesto = documentoRichiesto;
 	}
 
 	@Override

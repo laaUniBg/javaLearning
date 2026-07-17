@@ -57,7 +57,7 @@ public abstract class Volo implements Prenotabile, Comparable<Volo> {
 	@Override
 	public void prenota() throws VoloPienoException {
 		boolean stillHaveSpace = this.passeggeriAttuali < this.aereo.getCapienza();
-		if(!stillHaveSpace) throw new VoloPienoException("il volo n." + this.codiceVolo + " è pieno");
+		if(!stillHaveSpace) throw new VoloPienoException("il volo n." + this.codiceVolo + " è pieno poichè il max posti è: " + this.aereo.getCapienza());
 		passeggeriAttuali++;
 	}
 	
@@ -77,12 +77,12 @@ public abstract class Volo implements Prenotabile, Comparable<Volo> {
 	
 	@Override
 	public String toString() {
-		final String strCodice = "codice volo: " + this.codiceVolo;
+		final String strCodiceVolo = "codice volo: " + this.codiceVolo;
 		final String strData = "data volo: " + this.data;
 		final String strAereo = "nome aereo: " + this.aereo.getModello();
 		final String strPosti = "posti occupati: " + Integer.toString(this.passeggeriAttuali) + "/" + Integer.toString(this.aereo.getCapienza());
 		
-		final String[] arrayInfo = {strCodice, strData, strAereo, strPosti};
+		final String[] arrayInfo = {strCodiceVolo, strData, strAereo, strPosti};
 		
 		String result = "";
 		
