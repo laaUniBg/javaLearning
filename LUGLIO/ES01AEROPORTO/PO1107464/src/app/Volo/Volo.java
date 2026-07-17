@@ -1,24 +1,25 @@
-package app;
+package app.Volo;
 
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import app.Aereo;
 import app.enums.TipoCoupon;
 import app.exceptions.CodiceNonValidoException;
 import app.exceptions.VoloPienoException;
 import app.interfaces.Prenotabile;
 
 public abstract class Volo implements Prenotabile, Comparable<Volo> {
-	protected String codice;
+	protected String codiceVolo;
 	protected Date data;
 	protected Aereo aereo; // has-a (associazione)
 	protected int passeggeriAttuali;
 	
 	private static final Map<String, Double> CODICISCONTOMAP = initCouponMap();
 	
-	public Volo(String codice, Date data, Aereo aereo) {
-		this.setCodice(codice);
+	public Volo(String codiceVolo, Date data, Aereo aereo) {
+		this.setCodiceVolo(codiceVolo);
 		this.data = data;
 		this.aereo = aereo;
 		this.passeggeriAttuali = 0;
@@ -26,7 +27,7 @@ public abstract class Volo implements Prenotabile, Comparable<Volo> {
 	
 	// overloading del costruttore
 	public Volo(Volo voloToCopy) {
-		this(voloToCopy.getCodice(), voloToCopy.getData(), voloToCopy.getAereo());
+		this(voloToCopy.getCodiceVolo(), voloToCopy.getData(), voloToCopy.getAereo());
 	};
 	
 	// metodo astratto
@@ -56,7 +57,7 @@ public abstract class Volo implements Prenotabile, Comparable<Volo> {
 	@Override
 	public void prenota() throws VoloPienoException {
 		boolean stillHaveSpace = this.passeggeriAttuali < this.aereo.getCapienza();
-		if(!stillHaveSpace) throw new VoloPienoException("il volo n." + this.codice + " è pieno");
+		if(!stillHaveSpace) throw new VoloPienoException("il volo n." + this.codiceVolo + " è pieno");
 		passeggeriAttuali++;
 	}
 	
@@ -71,12 +72,12 @@ public abstract class Volo implements Prenotabile, Comparable<Volo> {
 	
 	@Override
 	public int compareTo(Volo altroVolo) {
-		return this.codice.compareTo(altroVolo.codice);
+		return this.codiceVolo.compareTo(altroVolo.codiceVolo);
 	}
 	
 	@Override
 	public String toString() {
-		final String strCodice = "codice volo: " + this.codice;
+		final String strCodice = "codice volo: " + this.codiceVolo;
 		final String strData = "data volo: " + this.data;
 		final String strAereo = "nome aereo: " + this.aereo.getModello();
 		final String strPosti = "posti occupati: " + Integer.toString(this.passeggeriAttuali) + "/" + Integer.toString(this.aereo.getCapienza());
@@ -100,15 +101,15 @@ public abstract class Volo implements Prenotabile, Comparable<Volo> {
 		return result;
 	};
 	
-	private void setCodice(String codice) {
+	private void setCodiceVolo(String codice) {
 		if (codice == null || codice.isBlank()) {
 			throw new CodiceNonValidoException("stringa nulla oppure vuota");
 		}
-		this.codice = codice;
+		this.codiceVolo = codice;
 	}
 
-	public String getCodice() {
-		return this.codice;
+	public String getCodiceVolo() {
+		return this.codiceVolo;
 	}
 
 	public Date getData() {
