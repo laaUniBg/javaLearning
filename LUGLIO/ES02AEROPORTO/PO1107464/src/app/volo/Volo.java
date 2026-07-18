@@ -10,7 +10,7 @@ import app.interfaces.Prenotabile;
 abstract public class Volo implements Prenotabile {
 	protected Date data;
 	protected Aereo aereo; // has-a (associazione)
-	protected String codice;
+	protected String codiceVolo;
 	protected int passeggeriAttuali;
 	protected String destinazione;
 	
