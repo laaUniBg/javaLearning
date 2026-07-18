@@ -9,7 +9,7 @@ import app.exceptions.CodiceIncorrettoException;
 import app.exceptions.VoloPienoException;
 import app.interfaces.Prenotabile;
 
-abstract public class Volo implements Prenotabile {
+abstract public class Volo implements Prenotabile, Comparable<Volo> {
 	private Date data;
 	private Aereo aereo; // has-a (associazione)
 	private 	String codiceVolo;
@@ -77,7 +77,18 @@ abstract public class Volo implements Prenotabile {
 		return this.aereo;
 	}
 
-	private String getCodiceVolo() {
+	public String getCodiceVolo() {
 		return this.codiceVolo;
+	}
+
+	// normale ordinamento
+	@Override
+	public int compareTo(Volo o) {
+		return o.codiceVolo.compareToIgnoreCase(this.codiceVolo);
+	}
+	
+	@Override
+	public String toString() {
+		return null; // TODO:
 	}
 }
