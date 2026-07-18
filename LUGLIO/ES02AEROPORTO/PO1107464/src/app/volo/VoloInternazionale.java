@@ -11,6 +11,11 @@ public class VoloInternazionale extends Volo {
 		super(codiceVolo, data, aereo);
 		this.needsPassaporto = needsPassaporto;
 	}
+	
+	public VoloInternazionale(Volo copiaVolo, boolean needsPassaporto) {
+		super(copiaVolo);
+		this.needsPassaporto = needsPassaporto;
+	}
 
 	@Override
 	protected double calcolaPrezzoBase() {

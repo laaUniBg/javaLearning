@@ -41,8 +41,9 @@ public class GestoreAeroporto {
 		Volo v2 = new VoloNazionale("BGY200", data2, airbus);
 		Volo v3 = new VoloInternazionale("BAR100", data1, boeing, false);
 		Volo v4 = new VoloInternazionale("RAK200", data2, airbus, true);
-	
-		tabellone.addAll(List.of(v1,v2,v3,v4));
+		Volo v5 = new VoloInternazionale(v4, true);
+		
+		tabellone.addAll(List.of(v1,v2,v3,v4, v5));
 	}
 	
 	// TODO: Exceptions
