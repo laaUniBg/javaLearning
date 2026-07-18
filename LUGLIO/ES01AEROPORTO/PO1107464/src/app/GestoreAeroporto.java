@@ -9,6 +9,8 @@ import java.util.List;
 import app.Volo.Volo;
 import app.Volo.VoloInternazionale;
 import app.Volo.VoloNazionale;
+import app.enums.TipoCoupon;
+import app.enums.TipoPosto;
 import app.exceptions.CodiceNonValidoException;
 import app.exceptions.VoloPienoException;
 
@@ -42,10 +44,10 @@ public class GestoreAeroporto {
 		Date data1 = new Date(2026-1900, 7, 30);
 		Date data2 = new Date(2026-1900, 8, 3);
 		
-		Volo v1 = new VoloNazionale("IT100", data1, boeing);
-		Volo v2 = new VoloNazionale("IT200", data2, boeing);
-		Volo v3 = new VoloInternazionale("FR100", data1, boeing, false);
-		Volo v4 = new VoloInternazionale("MA100", data2, boeing, true);
+		Volo v1 = new VoloNazionale("MXP100", data1, boeing);
+		Volo v2 = new VoloNazionale("BGY200", data2, boeing);
+		Volo v3 = new VoloInternazionale("BAR100", data1, boeing, false);
+		Volo v4 = new VoloInternazionale("RAK100", data2, boeing, true);
 		
 		tabellone.add(v1);
 		tabellone.add(v2);
@@ -127,9 +129,17 @@ public class GestoreAeroporto {
 			System.out.println(thisVolo.toString());
 		};
 	}
+
+	private static void testCalcoloPrezzi(List<Volo> tabellone) {
+		for(Volo thisVolo : tabellone) {
+			double thisPrezzo = thisVolo.calcolaPrezzo(TipoCoupon.ORO30.name(), TipoPosto.ECONOMY);
+			String strTipoVolo = thisVolo instanceof VoloNazionale ? "VoloNazionale" : "VoloInternazionale";
+			System.out.println("TEST CALCOLO PREZZI - il " + strTipoVolo + "n. " + thisVolo.getCodiceVolo() + " costa " + Double.toString(thisPrezzo) + "euro");
+		};
+	}
 	
 	public static void main(String[] args) {
-		List<Volo> tabellone = new ArrayList<>();
+		List<Volo> tabellone = new ArrayList<Volo>();
 		GestoreAeroporto.popolaDatabase(tabellone);
 		
 		Volo v1 = tabellone.get(0);
@@ -139,6 +149,8 @@ public class GestoreAeroporto {
 		GestoreAeroporto.testRuntimeException();
 		
 		GestoreAeroporto.testInstanceOf(tabellone);
+
+		GestoreAeroporto.testCalcoloPrezzi(tabellone);
 		
 		GestoreAeroporto.testOrdinamentoNaturale(tabellone);
 		

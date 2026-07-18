@@ -6,6 +6,7 @@ import java.util.Map;
 
 import app.Aereo;
 import app.enums.TipoCoupon;
+import app.enums.TipoDestinazione;
 import app.enums.TipoPosto;
 import app.exceptions.CodiceNonValidoException;
 import app.exceptions.VoloPienoException;
@@ -16,6 +17,7 @@ public abstract class Volo implements Prenotabile, Comparable<Volo> {
 	protected Date data;
 	protected Aereo aereo; // has-a (associazione)
 	protected int passeggeriAttuali;
+	protected String paeseDestinazione;
 	
 	private static final Map<String, Double> CODICISCONTOMAP = initCouponMap();
 	
@@ -24,6 +26,7 @@ public abstract class Volo implements Prenotabile, Comparable<Volo> {
 		this.data = data;
 		this.aereo = aereo;
 		this.passeggeriAttuali = 0;
+		this.paeseDestinazione = TipoDestinazione.getPaeseDestinazione(codiceVolo).name();
 	};
 	
 	// overloading del costruttore
