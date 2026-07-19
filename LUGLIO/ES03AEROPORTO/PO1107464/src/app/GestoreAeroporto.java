@@ -28,7 +28,7 @@ public class GestoreAeroporto {
 			
 			if(strCmp<0) {
 				max = middle-1;
-			} else if(strCmp>0){
+			} else {
 				min = middle+1;
 			}
 		}
