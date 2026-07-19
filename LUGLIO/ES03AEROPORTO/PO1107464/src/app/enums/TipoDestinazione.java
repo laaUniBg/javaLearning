@@ -14,14 +14,12 @@ public enum TipoDestinazione {
 	}
 	
 	public static TipoDestinazione getPaeseFromCodiceVolo(String codiceVolo) {
-		if(codiceVolo == null || codiceVolo.isBlank()) {
-			throw new CodiceVoloNonValido("GETPAESEFROMCODICE VOLO: RUNTIME EXCEPTION (NULL O VUOTO)");
-		}
+		if(codiceVolo == null || codiceVolo.isBlank()) return null;
 		
 		try {
 			final String thisCodiceAeroporto = codiceVolo.substring(0, 0+3);
 		} catch(IndexOutOfBoundsException e) {
-			throw new CodiceVoloNonValido("GETPAESEFROMCODICE VOLO: RUNTIME EXCEPTION (NON PRESENTE NELLA LISTA CODICI AEROPORTI)");
+			return null;
 		};
 		
 		for(TipoDestinazione thisPaese : TipoDestinazione.values()) {
