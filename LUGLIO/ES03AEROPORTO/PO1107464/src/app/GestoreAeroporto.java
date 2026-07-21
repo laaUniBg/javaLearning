@@ -96,7 +96,7 @@ public class GestoreAeroporto {
 	private static void testInstanceOfControlloDogana(List<Volo> tabellone) {
 		for(Volo thisVolo : tabellone) {
 			boolean isVoloInternazionale = thisVolo instanceof VoloInternazionale;
-			if(!isVoloInternazionale) return;
+			if(!isVoloInternazionale) continue;
 			
 			VoloInternazionale thisVoloInternazionale = (VoloInternazionale) thisVolo;
 			thisVoloInternazionale.controlloDogana();
