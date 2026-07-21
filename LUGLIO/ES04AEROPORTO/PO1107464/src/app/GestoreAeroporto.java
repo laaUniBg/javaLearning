@@ -64,7 +64,7 @@ public class GestoreAeroporto {
 			int strCmp = middleVolo.getCodiceVolo().compareTo(codiceVolo);
 			if(strCmp == 0) return middleVolo;
 			
-			if(strCmp<0) {
+			if(strCmp>0) {
 				max = middle-1;
 			} else {
 				min = middle+1;
@@ -83,6 +83,7 @@ public class GestoreAeroporto {
 			}
 		};
 		
+		System.out.println("ORDINAMENTO PER DATA");
 		Collections.sort(tabellone, compData);
 		
 		for(Volo thisVolo : tabellone) {
@@ -109,7 +110,7 @@ public class GestoreAeroporto {
 		try {			
 			Volo v1 = new VoloNazionale("IT", d1, a1);
 		} catch(CodiceIncorrettoException e) {
-			System.out.println(e.getCause());
+			System.out.println(e.getMessage());
 		}
 		
 	}
