@@ -16,6 +16,7 @@ public enum EnumCodiceAeroporto {
 	public static EnumCodiceAeroporto checkCodiceVoloAndReturnStato(String codiceVolo) {
 		if(codiceVolo == null) return null;
 		if(codiceVolo.isBlank()) return null;
+		if(codiceVolo.length() < 3) return null;
 		
 		for(EnumCodiceAeroporto thisStato : EnumCodiceAeroporto.values()) {
 			for(String thisCodiceAeroporto : thisStato.codiciAeroporto) {
@@ -29,7 +30,7 @@ public enum EnumCodiceAeroporto {
 					continue;
 				}
 				
-				boolean isEqual = thisCodiceVolo.equalsIgnoreCase(codiceVolo);
+				boolean isEqual = thisCodiceVolo.equalsIgnoreCase(codiceVolo.substring(0,0+3));
 				if(!isEqual) continue;
 				
 				return thisStato;

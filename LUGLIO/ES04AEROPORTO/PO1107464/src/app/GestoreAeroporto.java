@@ -123,10 +123,10 @@ public class GestoreAeroporto {
 		
 		GestoreAeroporto.testOrdinamentoNaturale(tabellone);
 		Volo v1=GestoreAeroporto.binarySearchVolo(tabellone, "RAK300");
-		System.out.println("BINARYSEARCH: " + v1 == null ? "NON TROVATO VOLO": "ABBIAMO TROVATO IL VOLO");
+		System.out.println("BINARYSEARCH: " + (v1 == null ? "NON TROVATO VOLO": "ABBIAMO TROVATO IL VOLO"));
 		
 		GestoreAeroporto.testCheckedException(v1);
-		// GestoreAeroporto.testCodiceIncorrettoException();
+		GestoreAeroporto.testCodiceIncorrettoException();
 		
 		GestoreAeroporto.testOrdinamentoPerData(tabellone);
 		

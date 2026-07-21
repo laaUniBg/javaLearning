@@ -43,7 +43,7 @@ public abstract class Volo implements Prenotabile, Comparable<Volo> {
 	
 	@Override
 	public int compareTo(Volo o) {
-		return o.getCodiceVolo().compareToIgnoreCase(this.codiceVolo);
+		return this.codiceVolo.compareToIgnoreCase(o.getCodiceVolo());
 	}
 
 	@Override
